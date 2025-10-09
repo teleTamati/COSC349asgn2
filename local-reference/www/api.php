@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Content-Type');
 
-$db_host = '192.168.56.12';
+$db_host = '${database_server_ip}';
 $db_name = 'tasktracker';
 $db_user = 'apiuser';
 $db_passwd = 'insecure_api_pw';
