@@ -1,0 +1,50 @@
+@startuml TaskTracker_Simple
+
+title Task Tracker - Three-Tier Architecture
+
+actor "Users" as users
+cloud "Internet Gateway" as internet
+
+rectangle "AWS Public Subnet" {
+    [Frontend Server\n13.220.58.45\nApache + Web UI] as frontend
+    [API Server\n54.226.58.65\nREST API + Logic] as api  
+    [Database Server\n54.144.227.65\nMySQL 8.0] as database
+}
+
+cloud "CloudWatch\nMonitoring" as monitoring
+
+' User flow
+users --> internet
+internet --> frontend : "HTTP"
+
+' Application flow
+frontend --> api : "HTTP API"
+api --> database : "MySQL"
+
+' Monitoring flow
+frontend ..> monitoring : "Metrics"
+api ..> monitoring : "Metrics"
+database ..> monitoring : "Metrics"
+
+note bottom of frontend
+  **Frontend Tier**
+  • User Interface
+  • Static Content
+  • Web Server
+end note
+
+note bottom of api
+  **Application Tier** 
+  • Business Logic
+  • API Endpoints
+  • Data Validation
+end note
+
+note bottom of database
+  **Data Tier**
+  • Data Persistence
+  • Task Storage
+  • User Management
+end note
+
+@enduml
